@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  
+	#handles the callback from google omniauth
+  get 'auth/:provider/callback', to: 'sessions#create'
+	get 'auth/failure', to:redirect('/')
+	#signout used when user logs out
+	get 'signout', to: 'sessions#destroy', as: 'signout'
+  get 'session/create'
+
+  get 'session/destroy'
+	
   root 'users#new'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -55,5 +65,7 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
    post '/signup',  to: 'users#create'
-   resources :users
+   resources :users 
+	 resources :google_users 
+	 resources :sessions, only:[:create, :destroy]
 end
