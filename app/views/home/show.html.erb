@@ -16,6 +16,18 @@
       <% end %>
     </div>
     <div>
+			<% @artists.each do |artist|%>
+				<div class="entry">
+			<table border="1">
+				<tr>
+					<th> Name  </th>
+					<th> Genre </th>
+				</tr>
+				<tr>
+					<td> <%=artist.name %> </td><td> <%=artist.genre %></td>
+				</tr>
+			</table>
+			<% end %>
     <%= yield %>
     </div>
   </body>
