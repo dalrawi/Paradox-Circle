@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
 	
   #checks to see if the user_id exists within the session
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= Google_User.find(session[:user_id]) if session[:user_id]
   end
 end

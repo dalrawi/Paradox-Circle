@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'home/show'
+
 	#handles the callback from google omniauth
   get 'auth/:provider/callback', to: 'sessions#create'
 	get 'auth/failure', to:redirect('/')
