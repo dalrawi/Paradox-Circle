@@ -51,3 +51,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #Google login gem
 gem "omniauth-google-oauth2", "~> 0.2.1"
+
+#Google calendar gem
+gem 'google-api-client', require: 'google/apis/calendar_v3'
