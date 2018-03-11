@@ -143,6 +143,8 @@ GEM
     omniauth (1.8.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
+    omniauth-facebook (4.0.0)
+      omniauth-oauth2 (~> 1.2)
     omniauth-google-oauth2 (0.2.10)
       addressable (~> 2.3)
       jwt (~> 1.0)
@@ -260,6 +262,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   google-api-client
   jbuilder (~> 2.5)
+  omniauth-facebook (~> 4.0.0)
   omniauth-google-oauth2 (~> 0.2.1)
   pg (>= 0.18, < 2.0)
   puma (~> 3.7)
