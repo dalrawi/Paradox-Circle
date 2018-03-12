@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   get 'session/destroy'
 	
   root 'users#new'
+  
+  #routing for search
+  get 'artists/index'
+  match 'artists/index', to: 'artists#index', via: :post
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
