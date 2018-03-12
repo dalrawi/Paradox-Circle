@@ -1,0 +1,14 @@
+<h1>Results for - <%= @search_term %>:</h1>
+<% if @artists.nil? %>
+<p> No results found </p>
+<% else %>
+  <table border="1">
+    <tr>
+    	<th>Title</th>
+    </tr>
+    <% @artists.each do |artist| %>
+        <td><%= artist.name %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
