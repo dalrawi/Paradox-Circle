@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180302191850) do
+ActiveRecord::Schema.define(version: 20180312024947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20180302191850) do
     t.bigint "place_id", null: false
     t.bigint "artist_id", null: false
     t.index ["place_id", "artist_id"], name: "index_artists_places_on_place_id_and_artist_id"
+  end
+
+  create_table "artists_tags", id: false, force: :cascade do |t|
+    t.bigint "artist_id", null: false
+    t.bigint "tag_id", null: false
+    t.index ["artist_id", "tag_id"], name: "index_artists_tags_on_artist_id_and_tag_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -54,6 +60,12 @@ ActiveRecord::Schema.define(version: 20180302191850) do
   create_table "places", force: :cascade do |t|
     t.string "name"
     t.geometry "lonlat", limit: {:srid=>0, :type=>"st_point"}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

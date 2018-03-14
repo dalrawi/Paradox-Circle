@@ -17,6 +17,13 @@ Rails.application.routes.draw do
   get 'artists/index'
   match 'artists/index', to: 'artists#index', via: :post
   
+  #routing for calendar
+  get '/redirect', to: 'example#redirect', as: 'redirect'
+  get '/callback', to: 'example#callback', as: 'callback'
+  get '/calendars', to: 'example#calendars', as: 'calendars'
+  get '/events/:calendar_id', to: 'example#events', as: 'events', calendar_id: /[^\/]+/
+  post '/events/:calendar_id', to: 'example#new_event', as: 'new_event', calendar_id: /[^\/]+/
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

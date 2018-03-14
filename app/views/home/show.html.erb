@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title> Paradox Cirlce - Spin into new local music </title>
+		<title> Paradox Circle - Spin into new local music </title>
 		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
@@ -31,4 +31,10 @@
     <%= yield %>
     </div>
   </body>
+  
+  <head>
+     <title> <strong> Your upcoming events </strong></title>
+  </head>
+  <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=blanc545%40gmail.com&amp;color=%2329527A&amp;ctz=America%2FDenver" 
+  style="border:solid 1px #777" width="500" height="300" frameborder="0" scrolling="no"></iframe>
 </html>
