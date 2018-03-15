@@ -12,29 +12,26 @@
         Signed in as <strong><%= current_user.name %></strong>!
         <%= link_to "Sign out", signout_path, id: "sign_out" %>
       <% else %>
-        <%= link_to "New user?", "root_path" %>
+        <li><%= link_to "Log in", '#' %></li>
       <% end %>
     </div>
-    <div>
+    <h3>Listing Nearby Artists</h3>
+      <div class="entry">
+        <table class="table">
+          <tr>
+            <th> Name </th>
+          </tr>
 			<% @artists.each do |artist|%>
-				<div class="entry">
-			<table border="1">
-				<tr>
-					<th> Name  </th>
-					<th> Genre </th>
-				</tr>
-				<tr>
-					<td> <%=artist.name %> </td><td> <%=artist.genre %></td>
-				</tr>
-			</table>
+				  <tr>
+					 <td> <%=artist.name %> </td>
+				  </tr>
 			<% end %>
+    </table>
     <%= yield %>
     </div>
   </body>
-  
-  <head>
-     <title> <strong> Your upcoming events </strong></title>
-  </head>
-  <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=blanc545%40gmail.com&amp;color=%2329527A&amp;ctz=America%2FDenver" 
-  style="border:solid 1px #777" width="500" height="300" frameborder="0" scrolling="no"></iframe>
+  <div class="calendar">
+    <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=blanc545%40gmail.com&amp;color=%2329527A&amp;ctz=America%2FDenver" 
+    style="border:solid 1px #777" width="500" height="300" frameborder="0" scrolling="no"></iframe>
+  </div>
 </html>

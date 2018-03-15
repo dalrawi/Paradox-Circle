@@ -19,6 +19,8 @@
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
       <%= f.submit "Create account", class: "btn btn-primary" %>
+      <%= link_to(image_tag("google-sign-in.png"),"/auth/google_oauth2") %>
+      <%= link_to(image_tag("fb-login.png"), "/auth/facebook") %>
     <% end %>
   </div>
 </div>
