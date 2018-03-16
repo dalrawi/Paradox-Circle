@@ -2,8 +2,15 @@
 @import "bootstrap";
 
 
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+
 body {
-  padding-top: 60px;
+  padding-top: 100px;
 }
 
 section {
@@ -122,13 +129,18 @@ aside {
   }
 }
 
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+.gravatar_edit {
+  margin-top: 30px;
+}
+
+
 /* forms */
 
-@mixin box_sizing {
-  -moz-box-sizing:    border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
-}
 
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
@@ -139,4 +151,14 @@ input, textarea, select, .uneditable-input {
 
 input {
   height: auto !important;
+}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
 }

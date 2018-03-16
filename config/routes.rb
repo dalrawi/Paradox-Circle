@@ -20,7 +20,6 @@ Rails.application.routes.draw do
 
   get 'session/destroy'
 	
-  root 'users#new'
   
   #routing for search
   get 'artists/index'
