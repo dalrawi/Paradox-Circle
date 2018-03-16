@@ -2,11 +2,22 @@
 <% if @artists.nil? %>
 <p> No results found </p>
 <% else %>
+  <h3>Showing results from artists:</h3>
   <table class="table">
     <tr>
     	<th>Title</th>
     </tr>
     <% @artists.each do |artist| %>
+        <td><%= artist.name %></td>
+      </tr>
+    <% end %>
+  </table>
+  <h3>Showing results tagged with <%=@search_term%>:</h3>
+  <table class="table">
+    <tr>
+    	<th>Title</th>
+    </tr>
+    <% @artisttags.each do |artist| %>
         <td><%= artist.name %></td>
       </tr>
     <% end %>
