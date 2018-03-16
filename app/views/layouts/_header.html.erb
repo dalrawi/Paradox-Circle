@@ -7,9 +7,6 @@
         <li><%= link_to "Help",   help_path %></li>
 	<li><%= link_to "About",  about_path %></li>
         <li><%= link_to "Log in", '#' %></li>
-        <!-- these two shouldn't be in header, they should be in index with sign up/login-->
-  	    <li><%= link_to(image_tag("google-sign-in.png"),"/auth/google_oauth2") %></li>
-	      <li><%= link_to(image_tag("fb-login.png"), "/auth/facebook") %></li>
       </ul>
       <div class="col-sm-3 col-md-3">
         <%= form_tag controller: 'artists', action: 'index', method: 'get', class: 'navbar-form', role: 'search' do %>

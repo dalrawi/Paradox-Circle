@@ -62,3 +62,4 @@ gem 'google-api-client', require: 'google/apis/calendar_v3'
 gem 'omniauth-facebook', '~> 4.0.0'
 
 
+gem 'jquery-rails'
