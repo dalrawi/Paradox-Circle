@@ -222,6 +222,8 @@ GEM
       faraday (~> 0.9)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
+    social-share-button (1.1.0)
+      coffee-rails
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -274,6 +276,7 @@ DEPENDENCIES
   rails (~> 5.1.5)
   sass-rails (~> 5.0)
   selenium-webdriver
+  social-share-button
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)

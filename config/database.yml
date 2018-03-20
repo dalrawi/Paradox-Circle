@@ -14,6 +14,7 @@
 # Configure Using Gemfile
 # gem 'pg'
 #
+
 default: &default
   adapter: postgis
   encoding: unicode
@@ -22,8 +23,8 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: liliaguirre91
-  password: 05deMayo
+  username: el239	
+  password: Miata858
 
 
 development:
