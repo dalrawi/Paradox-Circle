@@ -1,5 +1,9 @@
 class SessionsController < ApplicationController
-  def create
+
+	def new
+	end
+  
+	def create
     user = Google_User.from_omniauth(request.env["omniauth.auth"])
     session[:user_id] = user.id
     redirect_to '/home/show'
