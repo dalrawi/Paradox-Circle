@@ -66,3 +66,9 @@ gem 'omniauth-facebook', '~> 4.0.0'
 
 
 gem 'jquery-rails'
+
+#for webscraping
+gem 'nokogiri'
+
+#for autmoating rake tasks for scraping
+gem 'whenever'
