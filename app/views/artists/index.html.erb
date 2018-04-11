@@ -8,7 +8,7 @@
     	<th>Title</th>
     </tr>
     <% @artists.each do |artist| %>
-        <td><%= artist.name %></td>
+        <td><%= link_to artist.name, url_for(artist) %></td>
       </tr>
     <% end %>
   </table>
@@ -18,7 +18,7 @@
     	<th>Title</th>
     </tr>
     <% @artisttags.each do |artist| %>
-        <td><%= artist.name %></td>
+        <td><%= link_to artist.name, url_for(artist) %></td>
       </tr>
     <% end %>
   </table>
