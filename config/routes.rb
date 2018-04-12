@@ -29,9 +29,11 @@ Rails.application.routes.draw do
 	
   
   #routing for search
+
   get 'artists/index'
   match 'artists/index', to: 'artists#index', via: :post
   
+  resources :artists
   #routing for calendar
   get '/redirect', to: 'example#redirect', as: 'redirect'
   get '/callback', to: 'example#callback', as: 'callback'
@@ -95,6 +97,7 @@ Rails.application.routes.draw do
   #   end
    post '/signup',  to: 'users#create'
    resources :users 
+   resource :artists
 	 resources :google_users 
 	 resources :sessions, only:[:create, :destroy]
 end
