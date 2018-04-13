@@ -4,4 +4,9 @@ class ArtistsController < ApplicationController
 		@artists = Artist.search(@search_term,"artists")
 		@artisttags = Artist.search(@search_term,"tags")
 	end
+	def show
+		@artist = Artist.find(params[:id])
+	end
+
+
 end
