@@ -2,7 +2,9 @@
 <!-- this is the page users will be routed to when clicking on an artist name-->
 
 <div class="row">
-    <h1>Page for <%= @artist.name %></h1>
-    <p>Add more content to this file</p>
+    <h1>Page for <%= @artist.name %>
+    </h1>
+    <%= image_tag(@artist.image_url) %>
+    <p>This file will include description, links, etc </p>
 
 </div>
