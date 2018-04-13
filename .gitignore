@@ -17,3 +17,6 @@
 /yarn-error.log
 
 .byebug_history
+
+#ignore database file to avoid conflict
+config/database.yml
