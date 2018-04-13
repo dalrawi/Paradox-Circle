@@ -7,9 +7,10 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
+	
     <div>
       <% if current_user %>
-        Signed in as <strong><%= current_user.name %></strong>!
+        Signed in as <strong><%= current_user.username %></strong>!
         <%= link_to "Sign out", signout_path, id: "sign_out" %>
       <% else %>
         <li><%= link_to "Log in", '#' %></li>
@@ -23,15 +24,17 @@
           </tr>
 			<% @artists.each do |artist|%>
 				  <tr>
-					 <td> <%=artist.name %> </td>
+					 <td> <%= link_to artist.name, url_for(artist) %> </td>
 				  </tr>
 			<% end %>
     </table>
     <%= yield %>
     </div>
+
   </body>
   <div class="calendar">
     <iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=blanc545%40gmail.com&amp;color=%2329527A&amp;ctz=America%2FDenver" 
     style="border:solid 1px #777" width="500" height="300" frameborder="0" scrolling="no"></iframe>
   </div>
+<%= social_share_button_tag %>
 </html>

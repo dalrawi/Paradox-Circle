@@ -12,7 +12,9 @@ This is the current state of the project that I'm adding stuff to
 
 3. Start working on consolidating events with calendar. 
 
+## As a sidenote
 
+You may need to run sudo apt install wheneverize now as the scheduling functionality depends on it being installed if you do not get an error when trying to test the server don't worry about it.
 
 
 

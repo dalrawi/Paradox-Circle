@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+
   root 'users#new'
   
   get '/home', to: 'static_pages#home'
@@ -8,24 +9,31 @@ Rails.application.routes.draw do
 
   get '/about', to: 'static_pages#about'
   
+  get '/show', to: 'home#show'
 
-  get 'home/show'
+  get '/login', to: 'sessions#new'
 
-	#handles the callback from google omniauth
+  post '/login', to: 'sessions#create'
+
+  delete '/signout', to: 'sessions#destroy'
+
+  #handles the callback from google omniauth
   get 'auth/:provider/callback', to: 'sessions#create'
 	get 'auth/failure', to:redirect('/')
-	#signout used when user logs out
-	get 'signout', to: 'sessions#destroy', as: 'signout'
-  get 'session/create'
+ 
+  #signout used when user logs out
+  #get 'signout', to: 'sessions#destroy', as: 'signout'
+  #get 'session/create'
 
-  get 'session/destroy'
+  #get 'session/destroy'
 	
-  root 'users#new'
   
   #routing for search
+
   get 'artists/index'
   match 'artists/index', to: 'artists#index', via: :post
   
+  resources :artists
   #routing for calendar
   get '/redirect', to: 'example#redirect', as: 'redirect'
   get '/callback', to: 'example#callback', as: 'callback'
@@ -89,6 +97,7 @@ Rails.application.routes.draw do
   #   end
    post '/signup',  to: 'users#create'
    resources :users 
+   resource :artists
 	 resources :google_users 
 	 resources :sessions, only:[:create, :destroy]
 end
