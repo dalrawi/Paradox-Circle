@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
 
-  root 'users#new'
+  root 'sessions#new'
   
   get '/home', to: 'static_pages#home'
 
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   post '/login', to: 'sessions#create'
 
-  delete '/signout', to: 'sessions#destroy'
+  get '/signout', to: 'sessions#destroy'
 
   #handles the callback from google omniauth
   get 'auth/:provider/callback', to: 'sessions#create'
