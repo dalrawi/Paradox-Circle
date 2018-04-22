@@ -2,15 +2,12 @@
 Ruby Version: 2.4.3  
 Rails Version: Latest (using git in gem file)  
 PostgreSQL: (latest)
-This is the current state of the project that I'm adding stuff to
 
 ## What's needed next: 
 
-1. On backend: Add tag-user-artist association, on front end: Add a way for user to insert tags from artists page. 
+1. Redirect to home/show after logging in traditionally (Same place as when you log in with Google/fb), and add a way to go to user profile (users/:id) when you're in home and are logged in.  
+2. Add a way for user to insert tags from artists page (in the artist view). 
 
-2. Restrict access to pages based on logged in/out.
-
-3. Start working on consolidating events with calendar. 
 
 ## As a sidenote
 
