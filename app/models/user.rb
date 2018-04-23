@@ -1,14 +1,14 @@
 class User < ApplicationRecord
 	has_and_belongs_to_many :events
-	
-	#validates :name, presence: true, length: { maximum: 50 }
-	#VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-
-	validates :username, presence: true, length: { maximum: 50 }
-	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  	validates :email, presence: true, length: { maximum: 255 },
-                    	format: { with: VALID_EMAIL_REGEX },
-                    	uniqueness: { case_sensitive: false }
 	has_secure_password
-	validates :password, presence: true, length: { minimum: 6 }	
+	def self.from_omniauth(auth)
+		where(provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
+		    user.provider = auth.provider
+		    user.uid = auth.uid
+		    user.name = auth.info.name unless user.name != nil
+		    user.email =  SecureRandom.hex + '@example.com' unless user.email != nil
+		    user.password_digest = SecureRandom.urlsafe_base64 unless user.password_digest != nil
+		    user.save!
+		end
+	end
 end

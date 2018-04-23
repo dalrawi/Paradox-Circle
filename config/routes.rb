@@ -11,14 +11,14 @@ Rails.application.routes.draw do
   
   get '/show', to: 'home#show'
 
-  get '/login', to: 'sessions#new'
+ 
+  get '/login',   to: 'sessions#new'
+  post '/login',   to: 'sessions#create'
 
-  post '/login', to: 'sessions#create'
-
-  get '/signout', to: 'sessions#destroy'
+  get '/logout', to: 'sessions#destroy'
 
   #handles the callback from google omniauth
-  get 'auth/:provider/callback', to: 'sessions#create'
+  get 'auth/:provider/callback' => 'sessions#create_googlefb'
 	get 'auth/failure', to:redirect('/')
  
   #signout used when user logs out
