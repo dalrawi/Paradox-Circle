@@ -18,13 +18,6 @@
 
 .byebug_history
 
-<<<<<<< HEAD
-#ignore database file to avoid conflict
-config/database.yml
-=======
-database.yml
->>>>>>> 2158e72a4a1300f24290e1b253cc74106f55ff12
-*.yml
-*.yml
+
 config/database.yml
 .env
