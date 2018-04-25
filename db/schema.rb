@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312024947) do
+ActiveRecord::Schema.define(version: 20180423233350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,16 +47,6 @@ ActiveRecord::Schema.define(version: 20180312024947) do
     t.index ["user_id", "event_id"], name: "index_events_users_on_user_id_and_event_id"
   end
 
-  create_table "google_users", force: :cascade do |t|
-    t.string "provider"
-    t.string "uid"
-    t.string "name"
-    t.string "oauth_token"
-    t.datetime "oauth_expires_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "places", force: :cascade do |t|
     t.string "name"
     t.geometry "lonlat", limit: {:srid=>0, :type=>"st_point"}
@@ -71,11 +61,13 @@ ActiveRecord::Schema.define(version: 20180312024947) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
+    t.string "name"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
