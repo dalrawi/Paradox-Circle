@@ -27,3 +27,5 @@ database.yml
 *.yml
 *.yml
 config/database.yml
+
+*.env
