@@ -1,10 +1,18 @@
 
 <!-- this is the page users will be routed to when clicking on an artist name-->
-
-<div class="row">
-    <h1>Page for <%= @artist.name %>
-    </h1>
-    <%= image_tag(@artist.image_url) %>
-    <p>This file will include description, links, etc </p>
-
+<!DOCTYPE html>
+<html>
+<body>
+<div>
+    <h1>Page for <%= @artist.name %></h1>
+    <!--<div class="pull-left"><%= image_tag(@artist.image_url) %></div>-->
+    <div><h2>Description</h2>
+    <p>Paragraph with info about the artist</p></div>
 </div>
+<div class="pull-right">
+	<h3>Tags added to <%=@artist.name%>:</h3>
+	<%=@artist.tag_list %>
+<%= render 'tag' %>
+<%= yield %>
+</body>
+</html>
