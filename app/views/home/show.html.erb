@@ -11,12 +11,6 @@
     <div>
         Signed in as <strong><%= current_user.name %></strong>!
     </div>
-	<h2> Upcoming events </h2>
-	<div class="calendar">
-    <%= month_calendar do |date| %>
-       <%= date.day %>
-     <% end %>
-    </div>
 	
     <h3>Listing Nearby Artists</h3>
       <div class="entry">
