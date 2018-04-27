@@ -25,6 +25,9 @@ set :output, "log/local_scrape_log.log"
 #and subsequently scrape every website
 #that has local music listings
 
+#scrapes for shows in abq for now this is a placeholder
+#city can be updated based on user_city which will be part of the
+#the users profile
 every 24.hours do
-	rake "local_event_search:auto_create"
+	rake "local_event_search:google_search['albquerque']"
 end

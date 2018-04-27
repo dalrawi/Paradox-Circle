@@ -6,8 +6,9 @@ namespace :local_event_search do
 	@linkString = ''
 	@links = Array.new
 
-  task google_search: :environment do
-		url = "http://www.google.com/search?q=live+local+music+near+me"
+  task :google_search, [:city] => [:environment] do |t, args|
+		
+		url = "http://www.google.com/search?q=live+local+music+" + args.city
 		#open page to be parsed
 		doc = Nokogiri::HTML(open(url))
 		
@@ -30,9 +31,14 @@ namespace :local_event_search do
 				@links.delete(element)
 			end #end if
 		end #end do loop
+
+		##call proceeding task 
+		Rake::Task['local_event_search:event_scrape'].invoke
  
   end #end google_search task
 
+	task :event_scrape => :environment do
 
+	end #end task
 	
 end #end namespace
