@@ -4,22 +4,15 @@
 <% else %>
   <h3>Showing results from artists:</h3>
   <table class="table">
-    <tr>
-      <th style="width:10%">Image</th>
-    	<th>Title</th>
-    </tr>
     <% @artists.each do |artist| %>
       <td><%= link_to(image_tag(artist.image_url, size: "100x100"),url_for(artist)) %></td>
-      <td><%= link_to artist.name, url_for(artist) %></td>
+      <td><%= link_to artist.name, url_for(artist) %><br>
+      Tagged with: <%=artist.tag_list%></td>
     </tr>
     <% end %>
   </table>
   <h3>Showing results tagged with <%=@search_term%>:</h3>
   <table class="table">
-    <tr>
-      <th style="width:10%">Image</th>
-    	<th>Title</th>
-    </tr>
     <% @artisttags.each do |artist| %>
       <td><%= link_to(image_tag(artist.image_url, size: "100x100"),url_for(artist)) %></td>
       <td><%= link_to artist.name, url_for(artist) %></td>
