@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @concert.name %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @concert.start_time %>
+</p>
+
+<%= month_calendar events: @concerts do |date, concerts| %>
+  <%= date %>
+
+  <% concerts.each do |concert| %>
+    <div>
+      <%= concert.name %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= link_to 'Edit', edit_concert_path(@concert) %> |
+<%= link_to 'Back', concerts_path %>
