@@ -26,7 +26,6 @@ default: &default
   username: postgres
   password: t3chn0fr3aK
 
-
 development:
   <<: *default
   database: postgis_test_development
