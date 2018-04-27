@@ -6,10 +6,7 @@
         <%= gravatar_for @user %>
         <p>Hello, <%= @user.name %></p>
       </h1>
-	  
-	  <%= month_calendar do |date| %>
-         <%= date.day %>
-      <% end %>
+      
     </section>
   </aside>
   <div class="col-md-8">
@@ -30,6 +27,9 @@
             <%= render 'shared/quote_form' %>
           </section>
         </aside>
+        <%= month_calendar do |date| %>
+        <%= date.day %>
+      <% end %>
       </div>
     <% end %>
   </div>
