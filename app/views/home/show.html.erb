@@ -11,6 +11,13 @@
     <div>
         Signed in as <strong><%= current_user.name %></strong>!
     </div>
+	<h2> Upcoming events </h2>
+	<div class="calendar">
+    <%= month_calendar do |date| %>
+       <%= date.day %>
+     <% end %>
+    </div>
+	
     <h3>Listing Nearby Artists</h3>
       <div class="entry">
         <table class="table">
@@ -34,10 +41,7 @@
           </table>
           <%= yield %>
         </div>
-    <div class="calendar">
-    <iframe src="https://calendar.google.com/calendar/embed?title=Concerts%20and%20Events&amp;height=400&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=9siib7kvnmu8vdoh6eqnmk6nn4%40group.calendar.google.com&amp;color=%238C500B&amp;ctz=America%2FDenver" 
-    style="border-width:0" width="500" height="400" frameborder="0" scrolling="no"></iframe>
-    </div>
+    
   </body>
 
 </html>
