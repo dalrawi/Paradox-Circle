@@ -26,7 +26,6 @@ default: &default
   username: liliaguirre91
   password: 05deMayo!!
 
-
 development:
   <<: *default
   database: postgis_test_development
