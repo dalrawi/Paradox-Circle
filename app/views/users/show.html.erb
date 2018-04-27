@@ -9,14 +9,10 @@
       
     </section>
   </aside>
-  <div class="col-md-8">
-    <% if @user.quotes.any? %>
-      <h3>Quotes ( <%= @user.quotes.count %>)</h3>
-      <ol class="quotes">
-        <%= render @quotes %>
-      </ol>
-      <%= will_paginate @quotes %>
-    <% end %>
+   <div class="col-md-8">
+      <h3>Quote Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
     <% if logged_in? %>
       <div class="row">
         <aside class="col-md-4">
@@ -27,10 +23,10 @@
             <%= render 'shared/quote_form' %>
           </section>
         </aside>
-        <%= month_calendar do |date| %>
-        <%= date.day %>
       <% end %>
       </div>
+      <%= month_calendar do |date| %>
+      <%= date.day %>
     <% end %>
 <%= social_share_button_tag %>
   </div>
