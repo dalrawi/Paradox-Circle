@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user, only: [:edit, :update]
+  before_action :correct_user, only: [ :edit, :udate]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -11,6 +13,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @quote = current_user.quotes.build
+    @quotes = @user.quotes.paginate(page: params[:page])
   end
 
   # GET /users/new
@@ -20,6 +24,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @user = User.find(params[:id])
   end
 
   # POST /users
@@ -39,7 +44,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update_attributes(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -69,4 +74,12 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:username, :email, :password, :password_confirmation)
     end
+    
+    
+     
+     #Confirms the correct user
+     def correct_user
+       @user = User.find(params[:id])
+       redirect_to(root_url) unless current_user?(@user)
+     end
 end

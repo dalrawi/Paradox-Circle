@@ -8,4 +8,26 @@
       </h1>
     </section>
   </aside>
+  <div class="col-md-8">
+    <% if @user.quotes.any? %>
+      <h3>Quotes ( <%= @user.quotes.count %>)</h3>
+      <ol class="quotes">
+        <%= render @quotes %>
+      </ol>
+      <%= will_paginate @quotes %>
+    <% end %>
+    <% if logged_in? %>
+      <div class="row">
+        <aside class="col-md-4">
+          <section class="user_info">
+            <%= render 'shared/user_info' %>
+          </section>
+          <section class="quote_form">
+            <%= render 'shared/quote_form' %>
+          </section>
+        </aside>
+      </div>
+    <% end %>
+  </div>
 </div>
+
