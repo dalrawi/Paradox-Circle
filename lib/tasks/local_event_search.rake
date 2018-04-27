@@ -31,7 +31,8 @@ namespace :local_event_search do
 				@links.delete(element)
 			end #end if
 		end #end do loop
-
+	
+		puts @links.inspect
 		##call proceeding task 
 		Rake::Task['local_event_search:event_scrape'].invoke
  
@@ -41,6 +42,7 @@ namespace :local_event_search do
 		
 		venues = Array.new
 		event_time = Array.new
+		event_date = Array.new
 
 		to_be_parsed = ''
 
@@ -60,7 +62,14 @@ namespace :local_event_search do
 			
 				#open current link as a Nokogiri HTML doc		
 				doc = Nokogiri::HTML(open(link))
-			
+				
+				doc.css('header.eventdates').each do |date|
+					event_date.push(date.content)
+				end #end loop
+
+				puts event_date[0]
+	
+
 				#loop through locations and add them to the venues array.
 				#TODO need to check if .location is nil and loop for a different node if possible 
 				doc.css('.location').each do |venue_name|
@@ -68,8 +77,9 @@ namespace :local_event_search do
 					puts venue_name.content
 				end #end doc loop
 
-				doc.css('time abbr').each do |e_time|
+				doc.css('time abbr.value').each do |e_time|
 					event_time.push(e_time.content)
+					puts e_time.content
 				end #end loop
 			
 				#sanitize event times
