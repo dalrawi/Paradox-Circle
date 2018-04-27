@@ -4,8 +4,8 @@ class QuotesController < ApplicationController
   def create
     @quote = current_user.quotes.build(quote_params)
     if @quote.save
-      flash[:succes] = "Quote saved!"
-      redirect_to root_url
+      flash[:success] = "Quote saved!"
+      redirect_to current_user
     else
       render 'home/show'
     end

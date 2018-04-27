@@ -14,7 +14,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @quote = current_user.quotes.build
-    @quotes = @user.quotes.paginate(page: params[:page])
+    #@quotes = @user.quotes.paginate(page: params[:page])
+    @feed_items = @user.quotes.paginate(page: params[:page])
+    
   end
 
   # GET /users/new
