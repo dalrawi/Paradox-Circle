@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+#Hilarious bug: Tag.find_by(name: tags_list.sample) sometimes is null because not all tags are necessarily added due to randomness, running rails db:seed multiple times until it works is the solution.
 #reset tables before seed
 Artist.delete_all
 Tag.delete_all
@@ -17,7 +18,7 @@ tags_list.each do |genre|
 	Tag.create(name: genre)
 end
 artists_list.each do |band|
-	Artist.create(name: band, image_url: images.sample)
+	Artist.create(name: band, image_url: "1.png")
 	#Assign a randomly selected tag to each artist
 	Artist.find_by(name: band).tags << Tag.find_by(name: tags_list.sample)
 end
