@@ -12,7 +12,14 @@
 <div class="pull-right">
 	<h3>Tags added to <%=@artist.name%>:</h3>
 	<%=@artist.tag_list %>
-<%= render 'tag' %>
+<div class="field">
+<%= form_for @tag do |f| %>
+	<%= f.hidden_field :artistId, :value => @artist.id %>
+  	<%= f.label :name, "Add a tag:" %><br />
+    <%= f.text_field :name %>
+  	<%= f.submit "Add Tag", class: "btn btn-primary" %>
+<% end %>
+</div>
 <%= yield %>
 </body>
 </html>

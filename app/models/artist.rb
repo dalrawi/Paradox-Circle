@@ -14,4 +14,7 @@ class Artist < ApplicationRecord
 		#return the tags applied to this artist
     	tags.map(&:name).join(', ')
   	end
+  	def update_tags(newtag)
+  		Artist.tags << newtag
+  	end
 end

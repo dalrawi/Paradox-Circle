@@ -102,4 +102,5 @@ Rails.application.routes.draw do
 	 resources :google_users 
 	 resources :sessions, only:[:create, :destroy]
 	 resources :quotes, only: [:create, :destroy]
+   resources :tags
 end
