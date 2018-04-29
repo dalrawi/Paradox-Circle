@@ -1,7 +1,0 @@
-<div class="field">
-<%= form_for @tag, url: {controller: "artists", action: "update"} do |f| %>
-  	<%= f.label :name, "Add a tag:" %><br />
-    <%= f.text_field :name %>
-  	<%= f.submit "Add Tag", class: "btn btn-primary" %>
-<% end %>
-</div>

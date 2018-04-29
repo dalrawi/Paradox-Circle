@@ -1,9 +1,8 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "Rails Demo", '#', id: "logo" %>
+    <%= link_to "Paradox Circle", show_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home", show_path %></li>
 				<% if current_user %>
           <li><%= link_to "Profile", user_path(current_user) %></li>
           <li><%= link_to "Settings", edit_user_path(current_user) %></li>

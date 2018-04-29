@@ -5,14 +5,21 @@
 <body>
 <div>
     <h1>Page for <%= @artist.name %></h1>
-    <!--<div class="pull-left"><%= image_tag(@artist.image_url) %></div>-->
+    <div class="pull-left"><%= image_tag(@artist.image_url,size: "200x200") %></div>
     <div><h2>Description</h2>
     <p>Paragraph with info about the artist</p></div>
 </div>
 <div class="pull-right">
 	<h3>Tags added to <%=@artist.name%>:</h3>
 	<%=@artist.tag_list %>
-<%= render 'tag' %>
+<div class="field">
+<%= form_for @tag do |f| %>
+	<%= f.hidden_field :artistId, :value => @artist.id %>
+  	<%= f.label :name, "Add a tag:" %><br />
+    <%= f.text_field :name %>
+  	<%= f.submit "Add Tag", class: "btn btn-primary" %>
+<% end %>
+</div>
 <%= yield %>
 </body>
 </html>
