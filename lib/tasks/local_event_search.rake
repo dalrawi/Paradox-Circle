@@ -5,10 +5,11 @@ namespace :local_event_search do
 	
 	@linkString = ''
 	@links = Array.new
+	@docs = Array.new
 
   task :google_search, [:city] => [:environment] do |t, args|
 		
-		url = "http://www.google.com/search?q=live+local+music+" + args.city
+		url = "http://www.google.com/search?q=live+local+music+" + args.city + "listings"
 		#open page to be parsed
 		doc = Nokogiri::HTML(open(url))
 		
@@ -33,83 +34,89 @@ namespace :local_event_search do
 		end #end do loop
 	
 		puts @links.inspect
+
+		##create documents out of all the links
+		@links.each do |link|
+			#don't search yelp pages always 503
+			if !link.include? 'yelp'
+				@docs.push(Nokogiri::HTML(open(link)))
+			end #end if			
+		end #end do
+
+
 		##call proceeding task 
 		Rake::Task['local_event_search:event_scrape'].invoke
  
   end #end google_search task
 
 	task :event_scrape => :environment do
-		
+		event_date = ''
+		shit_to_parse = ''
+		events = Array.new
+		event_times = Array.new
 		venues = Array.new
-		event_time = Array.new
-		event_date = Array.new
-
+		bands = Array.new
+		
 		to_be_parsed = ''
 
 		shit_to_ignore = ['classical', 'sludge', 'blues', 'folk', 'rock', 'alternative',
 		'goth', 'industrial', 'Latin', 'jazz', 'soul', 'trivia', 'country', 'Americana',
 		'funk', 'rap' '80\'s', 'hiphop', 'singersongwriter', 'disco', 'variety', 'bluegrass',
-		'Spanish', 'New Mexican', 'tropical', 'pop', 'classic']
+		'Spanish', 'New Mexican', 'tropical', 'pop', 'classic', 'mellow', 'alt.', 'alt', 'open-mic',
+		'singer-songwriter', 'acoustic', 'open mic']
 	
-		#make sure @links has elements
-		if @links.length > 0
-			puts '@links is not empty'
-			#loop through each link and scrape events?? 
-			#this may not be the cleanest way to do this as each website will have
-			#different layouts and formats
+		##Super convoluted loops to try an only pull music 
+		##events from the webpage because I am retarded and 
+		##so is trying to parse CSS in any generalized fashion
+		@docs[0].css('.location, .category').each do |venue|
+			next if venue.content.include? 'Music'		
+			break if venue.content.include? 'Arts'
+			venues.push(venue.content)
+		end #end loop
 
-			@links.each do |link|
-			
-				#open current link as a Nokogiri HTML doc		
-				doc = Nokogiri::HTML(open(link))
-				
-				doc.css('header.eventdates').each do |date|
-					event_date.push(date.content)
-				end #end loop
-
-				puts event_date[0]
-	
-
-				#loop through locations and add them to the venues array.
-				#TODO need to check if .location is nil and loop for a different node if possible 
-				doc.css('.location').each do |venue_name|
-					venues.push(venue_name.content)
-					puts venue_name.content
-				end #end doc loop
-
-				doc.css('time abbr.value').each do |e_time|
-					event_time.push(e_time.content)
-					puts e_time.content
-				end #end loop
-			
-				#sanitize event times
-				event_time.each do |e_time|
-					if e_time.length < 1
-						event_time.delete(e_time)
-					end # end if		
-				end #end loop
-	
-				puts event_time.inspect
-	
-				doc.css('.summary').each do |shit_value|
-					to_be_parsed = shit_value.content
-	
-					to_be_parsed.gsub!(/[^0-9A-Za-z ]/, '')
-	
-					shit_to_ignore.each do |ignore|
-						if to_be_parsed.include? ignore
-							trash = to_be_parsed.slice! ignore
-						end #end if
-					end #end inner loop
-	
-					puts to_be_parsed
-				end #end loop
-				break #break after first pass in loop failsafe atm
-				
-			end #end do loop		
+		@docs[0].css('.value, .category').each do |time|
+			next if time.content.include? 'Music'
+			break if time.content.include? 'Arts'
+			event_times.push(time.content)
+		end #end loop
 		
-		end #end if
+		@docs[0].css('.summary, .category').each do |band|
+			next if band.content.include? 'Music'
+			break if band.content.include? 'Arts'
+			##parse out the worthless genre shit
+			##seriously such a pita		
+			shit_to_parse = band.content
+			#cut out any non alphabetical/numerical values ie the fucking dot seperators
+			shit_to_parse.gsub!(/[^0-9A-Za-z ]/, '')
+			
+			#now loop through the genres and remove them from the strings and add
+			#only bands to the array
+
+			shit_to_ignore.each do |ignore|
+				if shit_to_parse.include? ignore
+					trash = shit_to_parse.slice! ignore
+				end #end if
+			end #end inner loop
+			
+			bands.push(shit_to_parse)
+
+		end #end loop
 		
+		
+		@docs[0].css('.eventdates').each do |date|
+			break if date.content.include? 'Notices'
+			event_date = date.content
+		end #end loop
+		
+	
+		puts event_date
+		puts venues.inspect
+		puts event_times.inspect
+		##OMG there are multiple bands per element with 
+		##NO LOGICAL WAY to differentiate them making
+		##adding bands individually to an event is FUCKING RETARDED JUST LIKE ME
+		puts bands.inspect
+		#puts events.inspect
 	end #end task
 	
 end #end namespace
