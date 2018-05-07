@@ -110,14 +110,14 @@ namespace :local_event_search do
 			@event_date = date.content
 		end #end loop
 		
-	
+		#for debugging purposes
 		puts @event_date
 		puts @venues.inspect
 		
 		##OMG there are multiple bands per element with 
 		##NO LOGICAL WAY to differentiate them making
 		##adding bands individually to an event is FUCKING RETARDED JUST LIKE ME
-		puts @bands.inspect
+		puts @bands.inspect #for debugging purposes
 		#puts events.inspect
 
 		##DATE Creation
@@ -137,7 +137,6 @@ namespace :local_event_search do
 				bands: @bands.at(@venues.index(e)), venue: e)
 			new_event.save 
 		end #end loop
-
 	end #end task
 	
 end #end namespace
