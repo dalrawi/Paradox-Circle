@@ -98,7 +98,7 @@ namespace :local_event_search do
 				end #end if
 			end #end inner loop
 			
-			bands.push(shit_to_parse)
+			bands.push(shit_to_parse.strip)
 
 		end #end loop
 		

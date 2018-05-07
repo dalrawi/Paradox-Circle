@@ -1,0 +1,43 @@
+doc.css('header.eventdates').each do |date|
+					event_date.push(date.content)
+				end #end loop
+
+				puts event_date[0]
+	
+
+				#loop through locations and add them to the venues array.
+				#TODO need to check if .location is nil and loop for a different node if possible 
+				doc.css('.location').each do |venue_name|
+					venues.push(venue_name.content)
+					puts venue_name.content
+				end #end doc loop
+
+				doc.css('time abbr.value').each do |e_time|
+					event_time.push(e_time.content)
+					puts e_time.content
+				end #end loop
+			
+				#sanitize event times
+				event_time.each do |e_time|
+					if e_time.length < 1
+						event_time.delete(e_time)
+					end # end if		
+				end #end loop
+	
+				puts event_time.inspect
+	
+				doc.css('.summary').each do |shit_value|
+					to_be_parsed = shit_value.content
+	
+					to_be_parsed.gsub!(/[^0-9A-Za-z ]/, '')
+	
+					shit_to_ignore.each do |ignore|
+						if to_be_parsed.include? ignore
+							trash = to_be_parsed.slice! ignore
+						end #end if
+					end #end inner loop
+	
+					puts to_be_parsed
+				end #end loop
+				break #break after first pass in loop failsafe atm
+				
