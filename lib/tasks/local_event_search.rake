@@ -6,6 +6,11 @@ namespace :local_event_search do
 	@linkString = ''
 	@links = Array.new
 	@docs = Array.new
+	@event_times = Array.new
+	@event_dates = Array.new
+	@venues = Array.new
+	@bands = Array.new
+	@event_date = ''
 
   task :google_search, [:city] => [:environment] do |t, args|
 		
@@ -49,15 +54,16 @@ namespace :local_event_search do
  
   end #end google_search task
 
+	##### Note #####
+	#this task is a lot longer than it should be
+	#need to be able to split bands and tags at a later time
+	################
+
 	task :event_scrape => :environment do
 		#local vars		
-		@event_date = ''
 		shit_to_parse = ''
 		temp_date = ''
-		@event_times = Array.new
-		@event_dates = Array.new
-		@venues = Array.new
-		@bands = Array.new
+		
 		
 		to_be_parsed = ''
 
@@ -136,6 +142,11 @@ namespace :local_event_search do
 			new_event = Event.new(created_at: @created_at, updated_at: @created_at, event_date: @event_dates.at(@venues.index(e)), 
 				bands: @bands.at(@venues.index(e)), venue: e)
 			new_event.save 
+		end #end loop
+
+		#loop through bands and add them to the artists table
+		@bands.each do |parse|
+			##do some stuff and split bands in here
 		end #end loop
 	end #end task
 	
