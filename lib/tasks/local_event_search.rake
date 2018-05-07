@@ -50,12 +50,14 @@ namespace :local_event_search do
   end #end google_search task
 
 	task :event_scrape => :environment do
-		event_date = ''
+		#local vars		
+		@event_date = ''
 		shit_to_parse = ''
-		events = Array.new
-		event_times = Array.new
-		venues = Array.new
-		bands = Array.new
+		temp_date = ''
+		@event_times = Array.new
+		@event_dates = Array.new
+		@venues = Array.new
+		@bands = Array.new
 		
 		to_be_parsed = ''
 
@@ -71,13 +73,13 @@ namespace :local_event_search do
 		@docs[0].css('.location, .category').each do |venue|
 			next if venue.content.include? 'Music'		
 			break if venue.content.include? 'Arts'
-			venues.push(venue.content)
+			@venues.push(venue.content)
 		end #end loop
 
 		@docs[0].css('.value, .category').each do |time|
 			next if time.content.include? 'Music'
 			break if time.content.include? 'Arts'
-			event_times.push(time.content)
+			@event_times.push(time.content)
 		end #end loop
 		
 		@docs[0].css('.summary, .category').each do |band|
@@ -98,25 +100,44 @@ namespace :local_event_search do
 				end #end if
 			end #end inner loop
 			
-			bands.push(shit_to_parse.strip)
+			@bands.push(shit_to_parse.strip)
 
 		end #end loop
 		
 		
 		@docs[0].css('.eventdates').each do |date|
 			break if date.content.include? 'Notices'
-			event_date = date.content
+			@event_date = date.content
 		end #end loop
 		
 	
-		puts event_date
-		puts venues.inspect
-		puts event_times.inspect
+		puts @event_date
+		puts @venues.inspect
+		
 		##OMG there are multiple bands per element with 
 		##NO LOGICAL WAY to differentiate them making
 		##adding bands individually to an event is FUCKING RETARDED JUST LIKE ME
-		puts bands.inspect
+		puts @bands.inspect
 		#puts events.inspect
+
+		##DATE Creation
+		##creates the date formatted string
+		##and then pushes them onto an array
+		@event_times.each do |new_event|
+			temp_date = @event_date + ' ' + new_event
+			temp_date.to_datetime
+			@event_dates.push(temp_date)
+		end #end loop
+
+		puts @event_dates.inspect
+		##Create new records and save them in the events table
+		@venues.each do |e|
+			@created_at = Time.now
+			new_event = Event.new(created_at: @created_at, updated_at: @created_at, event_date: @event_dates.at(@venues.index(e)), 
+				bands: @bands.at(@venues.index(e)), venue: e)
+			new_event.save 
+		end #end loop
+
 	end #end task
 	
 end #end namespace
