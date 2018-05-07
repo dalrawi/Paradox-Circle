@@ -49,8 +49,13 @@ namespace :local_event_search do
 		end #end do
 
 
-		##call proceeding task 
+		##call proceeding task
+		#debug puts
+		puts 'Finsihed calling google_search' 
 		Rake::Task['local_event_search:event_scrape'].invoke
+		puts 'Finished calling event_scrape'
+		Rake::Task['local_event_search:venue_update'].invoke
+		puts 'Finished calling venue_update'
  
   end #end google_search task
 
@@ -71,7 +76,7 @@ namespace :local_event_search do
 		'goth', 'industrial', 'Latin', 'jazz', 'soul', 'trivia', 'country', 'Americana',
 		'funk', 'rap' '80\'s', 'hiphop', 'singersongwriter', 'disco', 'variety', 'bluegrass',
 		'Spanish', 'New Mexican', 'tropical', 'pop', 'classic', 'mellow', 'alt.', 'alt', 'open-mic',
-		'singer-songwriter', 'acoustic', 'open mic']
+		'singer-songwriter', 'acoustic', 'open mic', 'indie', 'experimental', 'punk', 'dream']
 	
 		##Super convoluted loops to try an only pull music 
 		##events from the webpage because I am retarded and 
@@ -149,5 +154,15 @@ namespace :local_event_search do
 			##do some stuff and split bands in here
 		end #end loop
 	end #end task
+	
+
+	#### VENUE_UPDATE ####
+	######################
+
+	task :venue_update => :environment do 
+				
+		
+		puts @venues.inspect	
+	end #end venue_update
 	
 end #end namespace
