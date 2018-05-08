@@ -93,6 +93,8 @@ namespace :local_event_search do
 			@event_times.push(time.content)
 		end #end loop
 		
+		##causes an error if the band includes the word music
+		##or arts in the bands name seriously this is ridiculous
 		@docs[0].css('.summary, .category').each do |band|
 			next if band.content.include? 'Music'
 			break if band.content.include? 'Arts'
@@ -143,13 +145,13 @@ namespace :local_event_search do
 		puts @event_dates.inspect
 		##Create new records and save them in the events table
 		@venues.each do |e|
-			#ensure the event doesn't already exists
-			#if !Event.where(venue: e, event_date: @event_dates.at(@venues.index(e))).exists?			
+			#ensure the event doesn't already exist
+			if !Event.where(venue: e, event_date: @event_dates.at(@venues.index(e)).to_datetime).exists?			
 				@created_at = Time.now
 				new_event = Event.new(created_at: @created_at, updated_at: @created_at, event_date: @event_dates.at(@venues.index(e)), 
 					bands: @bands.at(@venues.index(e)), venue: e)
 				new_event.save
-			#end #end if 
+			end #end if 
 		end #end loop
 
 		#loop through bands and add them to the artists table
@@ -183,23 +185,25 @@ namespace :local_event_search do
 	#### VENUE_UPDATE ####
 	######################
 
-	task :venue_update => :environment do 
+	task :venue_update => [:environment] do 
 		
 		#local vars for stoof
 		search_string = ''
 		@Addresses = Array.new
 	
-		#@venues.each do |place|
-			
-			#search_string = "http://www.google.com/search?q=" + place
-			#venue_search = Nokogiri::HTML(open(search_string))
+		@venues.each do |place|
+			place.gsub!(/[()]/, '')
+			#okay maybe we scrape yelp because I can't seem to get the css class to populate the addr??
+			#google is super paranoid about scraping apparently
+			search_string = "https://www.yellowpages.com/search?search_terms=" + place + "&geo_location_terms=Albuquerque%2C+NM1" 
+			#puts search_string
+			venue_search = Nokogiri::HTML(open(search_string))
 			
 			#inner loop to extract address and phone# because that's how google sets it up
-			#venue_search.css('.LrzXr').each do |addr|
-				#puts addr.content
-			#end #end if				
-			
-		#end #end loop 
+			@Addresses.push(venue_search.css('.street-address, .locaility')[0].content)				
+		end #end loop
+
+		puts @Addresses.inspect 
 	end #end venue_update
 	
 end #end namespace
