@@ -176,8 +176,15 @@ namespace :local_event_search do
 		  if !Artist.exists?(['name LIKE ?', band])
 				@created_at = Time.now
 				#does not scrape for image url atm
-				new_artist = Artist.new(name: band, created_at: @created_at, updated_at: @created_at, image_url: 'tbd')
+				new_artist = Artist.new(name: band, created_at: @created_at, updated_at: @created_at, image_url: 'tbd.png')
 				new_artist.save
+			end #end if
+		end #end loop
+
+		Artist.all.each do |artist|
+			if artist.image_url.include? 'tbd'
+				artist.image_url = 'tbd.png'
+				artist.save
 			end #end if
 		end #end loop
 	end #end task
