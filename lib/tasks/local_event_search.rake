@@ -142,12 +142,15 @@ namespace :local_event_search do
 
 		puts @event_dates.inspect
 		##Create new records and save them in the events table
-		#@venues.each do |e|
-			#@created_at = Time.now
-			#new_event = Event.new(created_at: @created_at, updated_at: @created_at, event_date: @event_dates.at(@venues.index(e)), 
-				#bands: @bands.at(@venues.index(e)), venue: e)
-			#new_event.save 
-		#end #end loop
+		@venues.each do |e|
+			#ensure the event doesn't already exists
+			#if !Event.where(venue: e, event_date: @event_dates.at(@venues.index(e))).exists?			
+				@created_at = Time.now
+				new_event = Event.new(created_at: @created_at, updated_at: @created_at, event_date: @event_dates.at(@venues.index(e)), 
+					bands: @bands.at(@venues.index(e)), venue: e)
+				new_event.save
+			#end #end if 
+		end #end loop
 
 		#loop through bands and add them to the artists table
 
