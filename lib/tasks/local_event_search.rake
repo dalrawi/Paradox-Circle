@@ -14,7 +14,7 @@ namespace :local_event_search do
 
   task :google_search, [:city] => [:environment] do |t, args|
 		
-		url = "http://www.google.com/search?q=live+local+music+" + args.city + "listings"
+		url = "http://www.google.com/search?q=live+local+music+" + args.city
 		#open page to be parsed
 		doc = Nokogiri::HTML(open(url))
 		
@@ -142,17 +142,30 @@ namespace :local_event_search do
 
 		puts @event_dates.inspect
 		##Create new records and save them in the events table
-		@venues.each do |e|
-			@created_at = Time.now
-			new_event = Event.new(created_at: @created_at, updated_at: @created_at, event_date: @event_dates.at(@venues.index(e)), 
-				bands: @bands.at(@venues.index(e)), venue: e)
-			new_event.save 
-		end #end loop
+		#@venues.each do |e|
+			#@created_at = Time.now
+			#new_event = Event.new(created_at: @created_at, updated_at: @created_at, event_date: @event_dates.at(@venues.index(e)), 
+				#bands: @bands.at(@venues.index(e)), venue: e)
+			#new_event.save 
+		#end #end loop
 
 		#loop through bands and add them to the artists table
+
+		parsed = Array.new
 		@bands.each do |parse|
 			##do some stuff and split bands in here
+			if parse.include? '  '
+				parse.split('  ').each do |band|
+					puts band
+					if band.count("A-Za-z0-9") > 1
+						parsed.push(band)
+					end #end if
+				end #end inner loop
+			end #end if
 		end #end loop
+		puts '##### BANDS####'
+		
+		
 	end #end task
 	
 
@@ -160,9 +173,22 @@ namespace :local_event_search do
 	######################
 
 	task :venue_update => :environment do 
-				
 		
-		puts @venues.inspect	
+		#local vars for stoof
+		search_string = ''
+		@Addresses = Array.new
+	
+		#@venues.each do |place|
+			
+			#search_string = "http://www.google.com/search?q=" + place
+			#venue_search = Nokogiri::HTML(open(search_string))
+			
+			#inner loop to extract address and phone# because that's how google sets it up
+			#venue_search.css('.LrzXr').each do |addr|
+				#puts addr.content
+			#end #end if				
+			
+		#end #end loop 
 	end #end venue_update
 	
 end #end namespace
