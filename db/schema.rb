@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20180507192546) do
   create_table "artists_tags", id: false, force: :cascade do |t|
     t.bigint "artist_id", null: false
     t.bigint "tag_id", null: false
-    t.integer "count"
+    t.integer "count", null: false, default: 1
     t.index ["artist_id", "tag_id"], name: "index_artists_tags_on_artist_id_and_tag_id"
   end
 

@@ -10,10 +10,13 @@ class Artist < ApplicationRecord
 			Artist.joins(:tags).where("tags.name ilike ?","%#{keyword}%")
 		end
 	end
+	
+	#no longer used
 	def tag_list
 		#return the tags applied to this artist
     	tags.map(&:name).join(', ')
-  	end
+    end
+
   	def update_tags(newtag)
   		Artist.tags << newtag
   	end

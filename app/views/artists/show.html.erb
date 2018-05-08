@@ -1,17 +1,19 @@
-
 <!-- this is the page users will be routed to when clicking on an artist name-->
 <!DOCTYPE html>
 <html>
 <body>
 <div>
     <h1>Page for <%= @artist.name %></h1>
-    <div class="pull-left"><%= image_tag(@artist.image_url,size: "200x200") %></div>
+    <div class="pull-left" style="padding:20px"><%= image_tag(@artist.image_url,size: "200x200") %></div>
     <div><h2>Description</h2>
     <p>Paragraph with info about the artist</p></div>
 </div>
 <div class="pull-right">
 	<h3>Tags added to <%=@artist.name%>:</h3>
-	<%=@artist.tag_list %>
+	<% tags = @artist.tags.pluck(:name).flatten %>
+  <% tags.each do |t| %>
+    <%= link_to( t,) + ', '%>
+  <% end %>
 <div class="field">
 <%= form_for @tag do |f| %>
 	<%= f.hidden_field :artistId, :value => @artist.id %>
