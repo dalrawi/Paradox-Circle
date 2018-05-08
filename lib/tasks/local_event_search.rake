@@ -156,16 +156,24 @@ namespace :local_event_search do
 			##do some stuff and split bands in here
 			if parse.include? '  '
 				parse.split('  ').each do |band|
-					puts band
 					if band.count("A-Za-z0-9") > 1
 						parsed.push(band)
 					end #end if
 				end #end inner loop
 			end #end if
 		end #end loop
-		puts '##### BANDS####'
 		
 		
+		#loop through parsed band
+		parsed.each do |band|
+			#if the artist name already exists in the db do not add the band again
+		  if !Artist.exists?(['name LIKE ?', band])
+				@created_at = Time.now
+				#does not scrape for image url atm
+				new_artist = Artist.new(name: band, created_at: @created_at, updated_at: @created_at, image_url: 'tbd')
+				new_artist.save
+			end #end if
+		end #end loop
 	end #end task
 	
 
