@@ -33,7 +33,6 @@ Rails.application.routes.draw do
 
   get 'artists/index'
   match 'artists/index', to: 'artists#index', via: :post
-  
   resources :artists
   #routing for calendar
   get '/redirect', to: 'example#redirect', as: 'redirect'
@@ -96,6 +95,7 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
    post '/signup',  to: 'users#create'
    resources :users 
    resource :artists
