@@ -14,12 +14,15 @@ class TagsController < ApplicationController
 	end
 
 	def increaseTagCount
-		#need to update count in Artists_Tags table
-		# UPDATE Artists_Tags
-		# SET count = count + 1
-		# WHERE artist_id=artistId AND tag_id=@tag.id
-		flash[:success]="Tag added"
-		redirect_to 'home#show'
+		#now uses HMT artist_tags table instead of HABTM artists_tags
+		#I asked stack overflow about updating count and my problem was solved in 2 minutes. 
+		logger.debug "parameters: #{params.inspect}"
+		artistToUpdate = Artist.find(params[:ids][0])
+		tagToUpdate = Tag.find(params[:ids][1])
+		artistTagToUpdate = artistToUpdate.artist_tags.find_by_tag_id(tagToUpdate.id)
+		artistTagToUpdate.update(tag_count: artistTagToUpdate.tag_count + 1)
+		redirect_to artistToUpdate
+		flash[:success]= "Tag " + tagToUpdate.name + " added to " + artistToUpdate.name + "."
 	end
 
 	def tag_params

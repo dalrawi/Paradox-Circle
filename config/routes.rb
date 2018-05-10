@@ -41,6 +41,9 @@ Rails.application.routes.draw do
   get '/events/:calendar_id', to: 'example#events', as: 'events', calendar_id: /[^\/]+/
   post '/events/:calendar_id', to: 'example#new_event', as: 'new_event', calendar_id: /[^\/]+/
   
+  #routing for tag increase count
+  match '/artists/:id/tag#increaseTagCount', to: 'tags#increaseTagCount', via: :get
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -99,8 +102,8 @@ Rails.application.routes.draw do
    post '/signup',  to: 'users#create'
    resources :users 
    resource :artists
-	 resources :google_users 
 	 resources :sessions, only:[:create, :destroy]
 	 resources :quotes, only: [:create, :destroy]
    resources :tags
+   resources :artist_tags
 end

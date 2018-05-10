@@ -1,7 +1,7 @@
 class Artist < ApplicationRecord
 	has_and_belongs_to_many :places
-	has_and_belongs_to_many :tags
-
+	has_many :artist_tags
+	has_many :tags, through: :artist_tags
 	
 	def self.search(keyword,searchType)
 		if searchType == "artists"

@@ -13,5 +13,6 @@ class ArtistsController < ApplicationController
   	def artist_params
 		params.require(:tag).permit(:name)
 	end
+	
 
 end

@@ -12,7 +12,7 @@
 	<h3>Tags added to <%=@artist.name%>:</h3>
 	<% tags = @artist.tags.pluck(:name).flatten %>
   <% tags.each do |t| %>
-    <%= link_to( t,) + ', '%>
+    <%= link_to( t, {:controller=> 'tags', :action => 'increaseTagCount', :ids => [@artist.id, Tag.find_by(name: t).id] }) + ', '%>
   <% end %>
 <div class="field">
 <%= form_for @tag do |f| %>

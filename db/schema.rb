@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180507192546) do
+ActiveRecord::Schema.define(version: 20180509182838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "artist_tags", force: :cascade do |t|
+    t.bigint "artist_id"
+    t.bigint "tag_id"
+    t.integer "tag_count", null: false, default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_artist_tags_on_artist_id"
+    t.index ["tag_id"], name: "index_artist_tags_on_tag_id"
+  end
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
@@ -27,13 +37,6 @@ ActiveRecord::Schema.define(version: 20180507192546) do
     t.bigint "place_id", null: false
     t.bigint "artist_id", null: false
     t.index ["place_id", "artist_id"], name: "index_artists_places_on_place_id_and_artist_id"
-  end
-
-  create_table "artists_tags", id: false, force: :cascade do |t|
-    t.bigint "artist_id", null: false
-    t.bigint "tag_id", null: false
-    t.integer "count", null: false, default: 1
-    t.index ["artist_id", "tag_id"], name: "index_artists_tags_on_artist_id_and_tag_id"
   end
 
   create_table "concerts", force: :cascade do |t|
@@ -62,7 +65,6 @@ ActiveRecord::Schema.define(version: 20180507192546) do
     t.geometry "lonlat", limit: {:srid=>0, :type=>"st_point"}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "address"
   end
 
   create_table "quotes", force: :cascade do |t|
@@ -91,5 +93,7 @@ ActiveRecord::Schema.define(version: 20180507192546) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "artist_tags", "artists"
+  add_foreign_key "artist_tags", "tags"
   add_foreign_key "quotes", "users"
 end
