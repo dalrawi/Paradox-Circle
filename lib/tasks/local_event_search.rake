@@ -76,7 +76,8 @@ namespace :local_event_search do
 		'goth', 'industrial', 'Latin', 'jazz', 'soul', 'trivia', 'country', 'Americana',
 		'funk', 'rap' '80\'s', 'hiphop', 'singersongwriter', 'disco', 'variety', 'bluegrass',
 		'Spanish', 'New Mexican', 'tropical', 'pop', 'classic', 'mellow', 'alt.', 'alt', 'open-mic',
-		'singer-songwriter', 'acoustic', 'open mic', 'indie', 'experimental', 'punk', 'dream']
+		'singer-songwriter', 'acoustic', 'open mic', 'indie', 'experimental', 'punk', 'dream', 'death metal',
+		'heavy metal', 'thrash']
 	
 		##Super convoluted loops to try an only pull music 
 		##events from the webpage because I am retarded and 
@@ -175,8 +176,15 @@ namespace :local_event_search do
 		  if !Artist.exists?(['name LIKE ?', band])
 				@created_at = Time.now
 				#does not scrape for image url atm
-				new_artist = Artist.new(name: band, created_at: @created_at, updated_at: @created_at, image_url: 'tbd')
+				new_artist = Artist.new(name: band, created_at: @created_at, updated_at: @created_at, image_url: 'tbd.png')
 				new_artist.save
+			end #end if
+		end #end loop
+
+		Artist.all.each do |artist|
+			if artist.image_url.include? 'tbd'
+				artist.image_url = 'tbd.png'
+				artist.save
 			end #end if
 		end #end loop
 	end #end task
@@ -192,18 +200,27 @@ namespace :local_event_search do
 		@Addresses = Array.new
 	
 		@venues.each do |place|
-			place.gsub!(/[()]/, '')
+
+			place.gsub!(/[^0-9A-Za-z ]/, '')
+			place.encode('UTF-8', :invalid => :replace, :undef => :replace)
+
+			puts place
 			#okay maybe we scrape yelp because I can't seem to get the css class to populate the addr??
 			#google is super paranoid about scraping apparently
 			search_string = "https://www.yellowpages.com/search?search_terms=" + place + "&geo_location_terms=Albuquerque%2C+NM1" 
 			#puts search_string
 			venue_search = Nokogiri::HTML(open(search_string))
 			
-			#inner loop to extract address and phone# because that's how google sets it up
-			@Addresses.push(venue_search.css('.street-address, .locaility')[0].content)				
+	
+			#quick and dirty addition to places table
+			if !Place.exists?(['name LIKE ?', place])			
+				new_venue = Place.new(name: place, created_at: Time.now, updated_at: Time.now, address: venue_search.css('.street-address, .locality')[0].content)
+				new_venue.save
+				#@Addresses.push(venue_search.css('.street-address, .locaility')[0].content)				
+			end #end if
 		end #end loop
 
-		puts @Addresses.inspect 
+		#puts @Addresses.inspect 
 	end #end venue_update
 	
 end #end namespace
