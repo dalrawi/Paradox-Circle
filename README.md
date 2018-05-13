@@ -11,3 +11,9 @@ PostgreSQL: (latest)
 4. a .env file needs to be created in the root directory that will hold your API keys for Google/Facebook authentication. The project will run without this part but none of the third party authentication will work without it.
 5. Finally, running 'rails start' or 'rails s' starts the server, pointing a broswer to http://localhost:3000 should take you to the home page of the application. 
 
+##Structure
+
+This project follows the typical structure of a MVC web application. Models are our classes, the main ones are the User class, the artist class, Event class, Tag class, and Venue class.
+The views contain all the HTML templates in which we can use embedded ruby to dynamically generate the content with one HTML file.
+The controller files contain methods to handle actions the user may make through the views.
+Active Record is used to interact with the database.
