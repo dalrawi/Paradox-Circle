@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
 
-  resources :concerts
   root 'sessions#new'
   
   get '/home', to: 'static_pages#home'

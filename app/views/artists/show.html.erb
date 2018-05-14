@@ -11,17 +11,19 @@
 <div class="pull-right">
 	<h3>Tags added to <%=@artist.name%>:</h3>
 	<% tags = @artist.tags.pluck(:name).flatten %>
+  <p>Popular tags added to this artist (click to add):</p>
   <% tags.each do |t| %>
-    <%= link_to( t, {:controller=> 'tags', :action => 'increaseTagCount', :ids => [@artist.id, Tag.find_by(name: t).id] }) + ', '%>
+    <!-- the following line passes the current artist id and the tag being clicked on's id to the tag controller to increment count -->
+    <%= link_to( "+" + t, {:controller=> 'tags', :action => 'increaseTagCount', :ids => [@artist.id, Tag.find_by(name: t).id] }) + ', '%>
   <% end %>
-<div class="field">
-<%= form_for @tag do |f| %>
-	<%= f.hidden_field :artistId, :value => @artist.id %>
-  	<%= f.label :name, "Add a tag:" %><br />
-    <%= f.text_field :name %>
-  	<%= f.submit "Add Tag", class: "btn btn-primary" %>
-<% end %>
+  <div class="field">
+    <%= form_for @tag do |f| %>
+	   <%= f.hidden_field :artistId, :value => @artist.id %>
+  	 <%= f.label :name, "Add a new tag:" %><br />
+     <%= f.text_field :name %>
+  	 <%= f.submit "Add", class: "btn btn-primary" %>
+    <% end %>
+  </div>
 </div>
-<%= yield %>
 </body>
 </html>

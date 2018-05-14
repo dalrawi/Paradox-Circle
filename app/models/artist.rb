@@ -20,4 +20,9 @@ class Artist < ApplicationRecord
   	def update_tags(newtag)
   		Artist.tags << newtag
   	end
+
+  	def top_tags
+  		#method to return top 5 tags added to the artist 
+  		#(query artist_tags table for max tag_count for this artist id)
+  	end
 end
