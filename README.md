@@ -1,4 +1,4 @@
-# Postgis Enabled Rails App
+# Paradox Circle Music Discovery App
 Ruby Version: 2.4.3  
 Rails Version: Latest (using git in gem file)  
 PostgreSQL: (latest)
