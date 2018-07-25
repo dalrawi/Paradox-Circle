@@ -12,3 +12,7 @@ PostgreSQL: (latest)
 5. Finally, running 'rails start' or 'rails s' starts the server, Loading up a broswer to http://localhost:3000 should take you to the home page of the application.
 ## Structure
 This project follows the typical structure of a MVC web application. Models are our classes, the main ones are the User class, the artist class, Event class, Tag class, and Venue class. The views contain all the HTML templates in which we use embedded ruby to dynamically generate the content from the template. The controller files contain methods to handle actions the user may make through the corresponding views. The model files contain the logic associated with that class and the association type with the other classes. The database used is PostgreSQL, though Active Record is used in the application to interact with the database.
+## Upcoming features in the work:
+1. One user may only tag a specific artist with the same tag once. Do not increase tag_count if the same user ID +s a tag they've added or already +'d. 
+2. Basic artist recommendation system that uses stored session history.
+
